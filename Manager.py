@@ -1,0 +1,42 @@
+import pkgutil
+import pkgutil
+import map
+
+
+class Manager:
+    _utils = None
+
+    def __init__(self, profile, speaker):
+        self.profile = profile
+        self.speaker = speaker
+
+    def getUtils(self):
+        locations = [map.getUtilsPath()]
+        print(f"Looking for modules in: {locations[0]}")
+        utils = []
+        for finder, name, ispkg in pkgutil.walk_packages(locations):
+            try:
+                loader = finder.find_module(name)
+                mod = loader.load_module(name)
+            except:
+                print("Skipped module '%s' due to an error.", name)
+            else:
+                print(f"Found module '{name}' with words: {mod.WORDS}")
+                utils.append(mod)
+        utils.sort(key=lambda mod: mod.PRIORITY, reverse=True)
+        self._utils = utils
+
+    def query(self, command):
+        for utils in self._utils:
+            if utils.isValid(command):
+                print(f"util '{utils.__name__}' validated")
+                try:
+                    utils.run(command, self.speaker, self.profile)
+                except Exception as e:
+                    print(e)
+                    print('Failed to execute util')
+                    self.speaker.say("I'm sorry. I had some trouble with " +
+                                     "that operation. Please try again later.")
+                finally:
+                    return
+        print(f"No util was able to run this command:\n \"{command}\"")
