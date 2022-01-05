@@ -1,0 +1,9 @@
+os
+
+SpeechRecognition
+
+pkgutil
+
+gtts
+
+playsound
