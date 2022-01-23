@@ -1,13 +1,13 @@
 import re
 import pywhatkit
 
-WORDS = ["music"]  # format: play ? music from ?
+WORDS = ["play", "music"]  # format: play ? music from ?
 
 PRIORITY = 1
 
 
 def run(command, speaker, profile):
-    musicName = "music"
+    musicName = "any"
     source = "myMusic"
     print(command.split(' '))
     if "from" in command:
@@ -18,9 +18,11 @@ def run(command, speaker, profile):
     if source == "youtube":
         pywhatkit.playonyt(topic=musicName, open_video=True)
 
-    if source == "myMusic":
+    elif source == "myMusic":
+        # create dir for music
+        # get from path and play musicName from it with library in rasp pi 4
         pass
 
 
 def isValid(command):
-    return bool(re.search(r'\bmusic\b', command, re.IGNORECASE))
+    return bool(all(word in command for word in WORDS))
