@@ -14,6 +14,8 @@ class Listener:
             with sr.Microphone() as source:
                 voice = self._engine.listen(source)
                 command = self._engine.recognize_google(voice)
-        except:
-            pass
+        except Exception as e:
+            print("Problem from speechRecognizer(Start)")
+            print(e)
+            print("Problem from speechRecognizer(Finish)")
         return command.lower()

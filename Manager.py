@@ -18,8 +18,9 @@ class Manager:
             try:
                 loader = finder.find_module(name)
                 mod = loader.load_module(name)
-            except:
-                print("Skipped module '%s' due to an error.", name)
+            except Exception as e:
+                print("Error:", e)
+                print(f"Skipped module \'{name}\' due to an error.")
             else:
                 print(f"Found module '{name}' with words: {mod.WORDS}")
                 utils.append(mod)
