@@ -1,6 +1,5 @@
 from gtts import gTTS
 import os
-import playsound
 import map
 
 
@@ -10,9 +9,10 @@ class Speaker:
         tts = gTTS(text=audio, lang='en', tld="com")
         filename = "abc.mp3"
         tts.save(filename)
-        playsound.playsound(filename)
+        os.system(f'mpg321 {filename}')
         os.remove(filename)
 
     def play(self, name):
         audioPath = map.getAudioPath()
-        playsound.playsound(audioPath + '/' + name)
+        print("audioPath:",audioPath)
+        os.system(f'mpg321 {audioPath}/{name}')
