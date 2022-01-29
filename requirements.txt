@@ -1,9 +1,7 @@
 SpeechRecognition
 
-gtts~=2.2.3
+gtts
 
-playsound~=1.3.0
+playsound
 
-pyjokes~=0.6.0
-pywhatkit~=5.3
-wikipedia~=1.4.0
+pywhatkit
