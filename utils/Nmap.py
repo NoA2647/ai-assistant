@@ -18,7 +18,7 @@ def execute(cmd):
 
 def run(command, speaker, profile):
     users = ["yourself"]
-    for path in execute([f"{map._APP_PATH}/nmap.sh"]):
+    for path in execute("sudo nmap -sn 192.168.1.0/24".split(" ")):
         print(path, end="")
         if 'MAC' in path:
             user = path.split('(')[-1]
