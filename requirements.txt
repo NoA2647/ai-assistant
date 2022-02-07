@@ -1,7 +1,17 @@
 SpeechRecognition
 
-gtts
+gtts~=2.2.3
 
 playsound
 
-pywhatkit
+pywhatkit~=5.3
+
+deepspeech~=0.9.3
+
+numpy~=1.22.2
+
+PyAudio~=0.2.11
+wikipedia~=1.4.0
+webrtcvad~=2.0.10
+halo~=0.0.31
+scipy~=1.8.0
