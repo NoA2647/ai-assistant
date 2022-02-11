@@ -11,7 +11,7 @@ def createProfile(path):
     email = input("email(it uses to read & send emails): ")
     nas = input("create home server(yes/no): ")
     nas = nas.lower()
-    if nas is "yes" or nas is "y":
+    if nas == "yes" or nas == "y":
         nas = True
     else:
         nas = False
@@ -41,7 +41,7 @@ class Profile:
         self._email = ""
         self._nas = False
 
-        if not os.path.isfile(self.map.getProfilePath):
+        if not os.path.isfile(self.map.getProfilePath()):
             createProfile(self.map.getProfilePath())
 
     def readProfile(self):
