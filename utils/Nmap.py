@@ -1,5 +1,5 @@
 import subprocess
-import map
+import Map
 
 WORDS = ["search", "network"]
 

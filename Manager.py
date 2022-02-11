@@ -1,17 +1,16 @@
 import pkgutil
-import pkgutil
-import map
 
 
 class Manager:
     _utils = None
 
-    def __init__(self, profile, speaker):
+    def __init__(self, profile, speaker, map):
         self.profile = profile
         self.speaker = speaker
+        self.map = map
 
     def getUtils(self):
-        locations = [map.getUtilsPath()]
+        locations = [self.map.getUtilsPath()]
         print(f"Looking for modules in: {locations[0]}")
         utils = []
         for finder, name, ispkg in pkgutil.walk_packages(locations):

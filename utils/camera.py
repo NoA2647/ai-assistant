@@ -24,6 +24,3 @@ def run(command, speaker, profile):
 
 def isValid(command):
     return bool(re.search(r'\bcamera\b', command, re.IGNORECASE))
-
-
-run("open camera by 192.168.1.52", None, None)
