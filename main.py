@@ -27,16 +27,16 @@ def run_ai():
     manager = Manager(profile, speaker, mapper)
     manager.getUtils()
     welcome(speaker, profile.getName())
-    # while True:
-    #     while True:
-    #         print("wake word:")
-    #         if wakeWord(listener, speaker):
-    #             break
-    #     print("listen")
-    #     # command = "transfer file to me"
-    #     command = listener.listen()
-    #     manager.query(command)
-    #     # sys.exit()
+    while True:
+        while True:
+            print("wake word:")
+            if wakeWord(listener, speaker):
+                break
+        print("listen")
+        # command = "transfer file to me"
+        command = listener.listen()
+        manager.query(command)
+        # sys.exit()
 
 
 run_ai()
