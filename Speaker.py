@@ -1,9 +1,11 @@
 from gtts import gTTS
 import os
-import map
 
 
 class Speaker:
+
+    def __init__(self, mapper):
+        self.map = mapper
 
     def say(self, audio):
         tts = gTTS(text=audio, lang='en', tld="com")
@@ -13,6 +15,6 @@ class Speaker:
         os.remove(filename)
 
     def play(self, name):
-        audioPath = map.getAudioPath()
+        audioPath = self.map.getAudioPath()
         print("audioPath:",audioPath)
         os.system(f'mpg321 {audioPath}/{name}')
