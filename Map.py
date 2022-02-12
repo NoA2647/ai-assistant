@@ -12,6 +12,23 @@ class Map:
 
         self._PROFILE_PATH = os.path.join(self._APP_PATH, ".profile")
 
+        self._NAS_PATH = None
+        self._NAS_DATA_PATH = None
+        self._NAS_DATA_MUSIC_PATH = None
+
+    def updateNas(self):
+        if self._NAS_PATH is None:
+            self._NAS_PATH = "/NasServer"
+
+    def update(self):
+        if self._NAS_PATH is not None:
+            self._NAS_DATA_PATH = os.path.join(self._NAS_PATH, ".NoA_DATA")
+            if not os.path.isdir(self._NAS_DATA_PATH):
+                os.mkdir(self._NAS_DATA_PATH)
+            self._NAS_DATA_PATH = os.path.join(self._NAS_DATA_PATH, "Music")
+            if not os.path.isdir(self._NAS_DATA_MUSIC_PATH):
+                os.mkdir(self._NAS_DATA_MUSIC_PATH)
+
     def getProfilePath(self):
         return self._PROFILE_PATH
 
@@ -26,3 +43,9 @@ class Map:
 
     def getDataPath(self):
         return self._DATA_PATH
+
+    def getNasPath(self):
+        return self._NAS_PATH
+
+    def setNasPath(self, path):
+        self._NAS_PATH = path
