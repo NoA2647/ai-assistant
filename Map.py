@@ -28,7 +28,7 @@ class Map:
             self._NAS_DATA_PATH = os.path.join(self._NAS_PATH, ".NoA_DATA")
             if not os.path.isdir(self._NAS_DATA_PATH):
                 os.mkdir(self._NAS_DATA_PATH)
-            self._NAS_DATA_PATH = os.path.join(self._NAS_DATA_PATH, "Music")
+            self._NAS_DATA_MUSIC_PATH = os.path.join(self._NAS_DATA_PATH, "Music")
             if not os.path.isdir(self._NAS_DATA_MUSIC_PATH):
                 os.mkdir(self._NAS_DATA_MUSIC_PATH)
 
