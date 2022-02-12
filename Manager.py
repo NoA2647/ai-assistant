@@ -2,12 +2,17 @@ import pkgutil
 
 
 class Manager:
-    _utils = None
 
     def __init__(self, profile, speaker, mapper):
         self.profile = profile
         self.speaker = speaker
         self.map = mapper
+        self._utils = None
+
+    def updateMap(self):
+        if self.profile.getNas():
+            self.map.updateNas()
+            self.map.update()
 
     def getUtils(self):
         locations = [self.map.getUtilsPath()]

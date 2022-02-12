@@ -25,6 +25,7 @@ def run_ai():
     profile = Profile(mapper)
     profile.readProfile()
     manager = Manager(profile, speaker, mapper)
+    manager.updateMap()
     manager.getUtils()
     welcome(speaker, profile.getUserName())
     while True:
