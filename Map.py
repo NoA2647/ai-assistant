@@ -50,5 +50,11 @@ class Map:
     def getNasPath(self):
         return self._NAS_PATH
 
+    def getNasDataPath(self):
+        return self._NAS_DATA_PATH
+
+    def getNasMusicPath(self):
+        return self._NAS_DATA_MUSIC_PATH
+
     def setNasPath(self, path):
         self._NAS_PATH = path

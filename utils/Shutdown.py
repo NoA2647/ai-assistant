@@ -6,7 +6,7 @@ WORDS = ["shut down", "turn off"]
 PRIORITY = 0
 
 
-def run(command, speaker, profile):
+def run(command, speaker, profile, mapper):
     speaker.say('good bye')
     sys.exit()
 

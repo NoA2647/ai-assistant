@@ -6,7 +6,7 @@ WORDS = ["time"]
 PRIORITY = 1
 
 
-def run(command, speaker, profile):
+def run(command, speaker, profile, mapper):
     time = datetime.datetime.now().strftime("%I:%M %p")
     result = f"current time is {time}"
     speaker.say(result)

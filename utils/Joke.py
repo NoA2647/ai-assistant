@@ -7,7 +7,7 @@ WORDS = ["joke"]
 PRIORITY = 1
 
 
-def run(command, speaker, profile):
+def run(command, speaker, profile, mapper):
     joke = pyjokes.get_joke(language='en', category='all')
     speaker.say(joke)
 

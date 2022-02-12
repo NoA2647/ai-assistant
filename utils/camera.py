@@ -8,7 +8,7 @@ WORDS = ["camera"]  # format: open camera by ?
 PRIORITY = 3
 
 
-def run(command, speaker, profile):
+def run(command, speaker, profile, mapper):
     ip = command.split(" ")[-1]
     url = f"http://{ip}:8080/shot.jpg"
     while True:

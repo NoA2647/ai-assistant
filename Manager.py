@@ -36,7 +36,7 @@ class Manager:
             if utils.isValid(command):
                 print(f"util '{utils.__name__}' validated")
                 try:
-                    utils.run(command, self.speaker, self.profile)
+                    utils.run(command, self.speaker, self.profile, self.map)
                 except Exception as e:
                     print(e)
                     print('Failed to execute util')

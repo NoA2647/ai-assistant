@@ -1,12 +1,13 @@
-import re
 import pywhatkit
+import os
+import random
 
 WORDS = ["play", "music"]  # format: play ? music from ?
 
 PRIORITY = 1
 
 
-def run(command, speaker, profile):
+def run(command, speaker, profile, mapper):
     musicName = "any"
     source = "myMusic"
     print(command.split(' '))
@@ -19,9 +20,10 @@ def run(command, speaker, profile):
         pywhatkit.playonyt(topic=musicName, open_video=True)
 
     elif source == "myMusic":
-        # create dir for music
-        # get from path and play musicName from it with library in rasp pi 4
-        pass
+        path = mapper.getNasMusic()
+        musics = os. listdir(path)
+        music = musics[random.randint(1, len(musics))]
+        os.system(f'mpg321 {path}/{music}')
 
 
 def isValid(command):
