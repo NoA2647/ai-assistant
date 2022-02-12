@@ -18,7 +18,7 @@ class Map:
 
     def updateNas(self):
         if self._NAS_PATH is None:
-            self._NAS_PATH = "/NasServer"
+            self._NAS_PATH = "/nasServer"
 
     def update(self):
         if self._DATA_PATH is None:
