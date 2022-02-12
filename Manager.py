@@ -4,10 +4,10 @@ import pkgutil
 class Manager:
     _utils = None
 
-    def __init__(self, profile, speaker, map):
+    def __init__(self, profile, speaker, mapper):
         self.profile = profile
         self.speaker = speaker
-        self.map = map
+        self.map = mapper
 
     def getUtils(self):
         locations = [self.map.getUtilsPath()]

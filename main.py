@@ -26,7 +26,7 @@ def run_ai():
     profile.readProfile()
     manager = Manager(profile, speaker, mapper)
     manager.getUtils()
-    welcome(speaker, profile.getName())
+    welcome(speaker, profile.getUserName())
     while True:
         while True:
             print("wake word:")
