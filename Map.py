@@ -8,7 +8,7 @@ class Map:
 
         self._AUDIO_PATH = os.path.join(self._APP_PATH, "audios")
         self._UTILS_PATH = os.path.join(self._APP_PATH, "utils")
-        self._DATA_PATH = None
+        self._DATA_PATH = os.path.join(self._APP_PATH, "data")
 
         self._PROFILE_PATH = os.path.join(self._APP_PATH, ".profile")
 
@@ -21,7 +21,7 @@ class Map:
             self._NAS_PATH = "/nasServer"
 
     def update(self):
-        if self._DATA_PATH is None:
+        if not os.path.isdir(self._DATA_PATH):
             self._DATA_PATH = os.path.join(self._APP_PATH, "data")
             os.mkdir(self._DATA_PATH)
         if self._NAS_PATH is not None:
