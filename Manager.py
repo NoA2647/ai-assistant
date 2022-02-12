@@ -12,7 +12,7 @@ class Manager:
     def updateMap(self):
         if self.profile.getNas():
             self.map.updateNas()
-            self.map.update()
+        self.map.update()
 
     def getUtils(self):
         locations = [self.map.getUtilsPath()]
