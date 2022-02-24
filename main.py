@@ -28,16 +28,15 @@ def run_ai():
     manager.updateMap()
     manager.getUtils()
     welcome(speaker, profile.getUserName())
+    #command = "play music"
+    #manager.query(command)
     while True:
         while True:
             print("wake word:")
             if wakeWord(listener, speaker):
                 break
         print("listen")
-        # command = "transfer file to me"
         command = listener.listen()
         manager.query(command)
-        # sys.exit()
-
 
 run_ai()
