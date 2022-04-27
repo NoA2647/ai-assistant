@@ -35,6 +35,10 @@ class Manager:
         for utils in self._utils:
             if utils.isValid(command):
                 print(f"util '{utils.__name__}' validated")
+                # confirm
+                ok = input(f"do you want to use '{utils.__name__}' util? (y/*)")
+                if ok != 'y' or ok != 'Y':
+                    continue
                 try:
                     utils.run(command, self.speaker, self.profile, self.map)
                 except Exception as e:
