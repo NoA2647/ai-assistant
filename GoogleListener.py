@@ -8,7 +8,7 @@ class Listener:
     def __init__(self):
         self._engine = sr.Recognizer()
 
-    def listen(self):
+    def listenSilence(self):
         command = ""
         try:
             with sr.Microphone() as source:
@@ -19,3 +19,7 @@ class Listener:
             print(e)
             print("Problem from speechRecognizer(Finish)")
         return command.lower()
+
+    def listen(self):
+        # control with gui
+        pass
