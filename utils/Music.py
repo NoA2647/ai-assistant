@@ -20,9 +20,13 @@ def run(command, speaker, profile, mapper):
         pywhatkit.playonyt(topic=musicName, open_video=True)
 
     elif source == "myMusic":
-        path = mapper.getNasMusic()
-        musics = os. listdir(path)
-        music = musics[random.randint(1, len(musics))]
+        path = mapper.getNasMusicPath()
+        musics = os.listdir(path)
+        print(musics)
+        if len(musics) == 0:
+            speaker.say("no music founded !")
+            return
+        music = musics[random.randint(0, len(musics)-1)]
         os.system(f'mpg321 {path}/{music}')
 
 
