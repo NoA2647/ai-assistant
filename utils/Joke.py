@@ -7,9 +7,9 @@ WORDS = ["joke"]
 PRIORITY = 1
 
 
-def run(command, speaker, profile, mapper):
+def run(command, iom, profile, mapper):
     joke = pyjokes.get_joke(language='en', category='all')
-    speaker.say(joke)
+    iom.getSpeaker().say(joke)
 
 
 def isValid(command):

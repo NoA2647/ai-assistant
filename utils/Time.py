@@ -6,10 +6,10 @@ WORDS = ["time"]
 PRIORITY = 1
 
 
-def run(command, speaker, profile, mapper):
+def run(command, iom, profile, mapper):
     time = datetime.datetime.now().strftime("%I:%M %p")
     result = f"current time is {time}"
-    speaker.say(result)
+    iom.getSpeaker().say(result)
 
 
 def isValid(command):

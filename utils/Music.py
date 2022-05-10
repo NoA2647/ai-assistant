@@ -7,14 +7,14 @@ WORDS = ["play", "music"]  # format: play ? music from ?
 PRIORITY = 1
 
 
-def run(command, speaker, profile, mapper):
+def run(command, iom, profile, mapper):
     musicName = "any"
     source = "myMusic"
     print(command.split(' '))
     if "from" in command:
         source = command.split(" ")[-1]
     musicName = command.split(' ')[1]
-    speaker.say(f"playing {musicName} music")
+    iom.getSpeaker().say(f"playing {musicName} music")
 
     if source == "youtube":
         pywhatkit.playonyt(topic=musicName, open_video=True)
@@ -24,7 +24,7 @@ def run(command, speaker, profile, mapper):
         musics = os.listdir(path)
         print(musics)
         if len(musics) == 0:
-            speaker.say("no music founded !")
+            iom.getSpeaker().say("no music founded !")
             return
         music = musics[random.randint(0, len(musics)-1)]
         os.system(f'mpg321 {path}/{music}')

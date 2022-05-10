@@ -1,15 +1,15 @@
 import sys
 import re
 
-WORDS = ["shut down", "turn off"]
+WORDS = ["خاموش", "turn off"]
 
 PRIORITY = 0
 
 
-def run(command, speaker, profile, mapper):
-    speaker.say('good bye')
-    sys.exit()
+def run(command, iom, profile, mapper):
+    # خاموش کن دیالوگ
+    return sys.exit()
 
 
 def isValid(command):
-    return bool(re.search(r'\bshut down|turn off\b', command, re.IGNORECASE))
+    return bool(re.search(r'\bخاموش|turn off\b', command, re.IGNORECASE))

@@ -15,7 +15,7 @@ def execute(cmd):
         raise subprocess.CalledProcessError(return_code, cmd)
 
 
-def run(command, speaker, profile, mapper):
+def run(command, iom, profile, mapper):
     users = ["yourself"]
     for path in execute("sudo nmap -sn 192.168.1.0/24".split(" ")):
         print(path, end="")
@@ -27,7 +27,7 @@ def run(command, speaker, profile, mapper):
     for user in users:
         result += f"\n{user}"
     print(result)
-    speaker.say(result)
+    iom.getSpeaker().say(result)
 
 
 def isValid(command):

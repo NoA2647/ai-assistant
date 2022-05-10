@@ -5,11 +5,11 @@ WORDS = ["wiki", "wikipedia"]  # format: search ? in wiki/wikipedia
 PRIORITY = 3
 
 
-def run(command, speaker, profile, mapper):
+def run(command, iom, profile, mapper):
     title = command.split(" ")[1:-2]
-    wikipedia.set_lang('en')
+    wikipedia.set_lang('fa')
     result = wikipedia.summary(title, sentences=3)
-    speaker.say(result)
+    iom.getSpeaker().say(result)
 
 
 def isValid(command):
