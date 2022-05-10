@@ -1,16 +1,14 @@
-from Speaker import Speaker
-from Screen import Screen
-from Text import Text
-from GoogleListener import Listener
-from Camera import Camera
+from iom.Speaker import Speaker
+from iom.screen.Screen import Screen
+from iom.listener.GoogleListener import Listener
+from iom.Camera import Camera
 
 
 class IOM:
     def __init__(self, mapper):
         self.listener = Listener()
         self.speaker = Speaker(mapper)
-        self.text = Text()
-        self.screen = Screen()
+        self.screen = Screen(mapper)
         self.camera = Camera()
 
     def getListener(self):
@@ -19,9 +17,6 @@ class IOM:
     def getSpeaker(self):
         return self.speaker
 
-    def getTextReader(self):
-        return self.text
-
     def getScreen(self):
         return self.screen
 
@@ -29,7 +24,7 @@ class IOM:
         return self.camera
 
 
-# test
-# iom = IOM('')
+# test camera
+# iom = iom('')
 # camera = iom.getCamera()
 # img = camera.phoneCamera('192.168.213.36')
