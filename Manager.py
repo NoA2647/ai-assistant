@@ -3,9 +3,9 @@ import pkgutil
 
 class Manager:
 
-    def __init__(self, profile, speaker, mapper):
+    def __init__(self, profile, iom, mapper):
         self.profile = profile
-        self.speaker = speaker
+        self.iom = iom
         self.map = mapper
         self._utils = None
 
@@ -40,12 +40,11 @@ class Manager:
                 if ok != 'y' or ok != 'Y':
                     continue
                 try:
-                    utils.run(command, self.speaker, self.profile, self.map)
+                    return utils.run(command, self.iom, self.profile, self.map)
                 except Exception as e:
                     print(e)
                     print('Failed to execute util')
-                    self.speaker.say("I'm sorry. I had some trouble with " +
-                                     "that operation. Please try again later.")
+                    self.iom.getSpeaker().say("عملیات با شکست مواجه شد!")
                 finally:
                     return
         print(f"No util was able to run this command:\n \"{command}\"")
