@@ -1,5 +1,9 @@
 import os
+import logging
 
+logging.basicConfig(filename='log.log',
+                    level=logging.DEBUG,
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
 class Map:
 
@@ -21,16 +25,20 @@ class Map:
             self._NAS_PATH = "/nasServer"
 
     def update(self):
-        if not os.path.isdir(self._DATA_PATH):
-            self._DATA_PATH = os.path.join(self._APP_PATH, "data")
-            os.mkdir(self._DATA_PATH)
-        if self._NAS_PATH is not None:
-            self._NAS_DATA_PATH = os.path.join(self._NAS_PATH, ".NoA_DATA")
-            if not os.path.isdir(self._NAS_DATA_PATH):
-                os.mkdir(self._NAS_DATA_PATH)
-            self._NAS_DATA_MUSIC_PATH = os.path.join(self._NAS_DATA_PATH, "Music")
-            if not os.path.isdir(self._NAS_DATA_MUSIC_PATH):
-                os.mkdir(self._NAS_DATA_MUSIC_PATH)
+        logging.info('updating NAS path ...')
+        try:
+            if not os.path.isdir(self._DATA_PATH):
+                self._DATA_PATH = os.path.join(self._APP_PATH, "data")
+                os.mkdir(self._DATA_PATH)
+            if self._NAS_PATH is not None:
+                self._NAS_DATA_PATH = os.path.join(self._NAS_PATH, ".NoA_DATA")
+                if not os.path.isdir(self._NAS_DATA_PATH):
+                    os.mkdir(self._NAS_DATA_PATH)
+                self._NAS_DATA_MUSIC_PATH = os.path.join(self._NAS_DATA_PATH, "Music")
+                if not os.path.isdir(self._NAS_DATA_MUSIC_PATH):
+                    os.mkdir(self._NAS_DATA_MUSIC_PATH)
+        except Exception as e:
+            logging.exception(e)
 
     def getProfilePath(self):
         return self._PROFILE_PATH

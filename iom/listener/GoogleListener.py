@@ -1,4 +1,9 @@
 import speech_recognition as sr
+import logging
+
+logging.basicConfig(filename='log.log',
+                    level=logging.DEBUG,
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
 
 class Listener:
@@ -11,12 +16,13 @@ class Listener:
         command = ""
         try:
             with sr.Microphone() as source:
+                self._engine.adjust_for_ambient_noise(source)  # listen for 1 second to calibrate
+                print("Say something!")
                 voice = self._engine.listen(source)
                 command = self._engine.recognize_google(voice, language=lang)
         except Exception as e:
-            print("Problem from speechRecognizer(Start)")
-            print(e)
-            print("Problem from speechRecognizer(Finish)")
+            print("something went wrong")
+            logging.exception(e)
         return command.lower()
 
     def listenFile(self, path):
@@ -27,8 +33,7 @@ class Listener:
                 command = self._engine.recognize_google(voice, language='fa-IR')
                 print(command)
         except Exception as e:
-            print("Problem from speechRecognizer(Start)")
-            print(e)
-            print("Problem from speechRecognizer(Finish)")
+            print("something went wrong")
+            logging.exception(e)
 
         return command

@@ -2,7 +2,11 @@ import cv2
 import urllib.request
 import numpy as np
 import ssl
+import logging
 
+logging.basicConfig(filename='log.log',
+                    level=logging.DEBUG,
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
 class Camera:
     def __init__(self):
@@ -12,10 +16,15 @@ class Camera:
         pass
 
     def phoneCamera(self, ip):
+        logging.info('start camera ...')
         url = f"https://{ip}:8080/shot.jpg"
         while True:
             gcontext = ssl.SSLContext()
-            imgPath = urllib.request.urlopen(url, context=gcontext)
+            imgPath = None
+            try :
+                imgPath = urllib.request.urlopen(url, context=gcontext)
+            except Exception as e:
+                logging.exception(e)
             imgNp = np.array(bytearray(imgPath.read()), dtype=np.uint8)
             img = cv2.imdecode(imgNp, -1)
 
