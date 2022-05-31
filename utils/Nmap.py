@@ -1,6 +1,6 @@
 import subprocess
 
-WORDS = ["search", "network"]
+WORDS = ["اسکن", "شبکه"]
 
 PRIORITY = 2
 
@@ -16,17 +16,19 @@ def execute(cmd):
 
 
 def run(command, iom, profile, mapper):
-    users = ["yourself"]
-    for path in execute("sudo nmap -sn 192.168.1.0/24".split(" ")):
+    # users = ["خودت"]
+    i=0
+    for path in execute("nmap -sn 192.168.10.0/24".split(" ")):
         print(path, end="")
-        if 'MAC' in path:
-            user = path.split('(')[-1]
-            users.append(user[:-2])
+        if 'Host' in path:
+            i+=1
+            # user = path.split('(')[-1]
+            # users.append(user[:-2])
 
-    result = f"number of users is {len(users)} ,and users are:"
-    for user in users:
-        result += f"\n{user}"
-    print(result)
+    result = f"تعداد کاربران پیدا شده: {i} تا"
+    # for user in users:
+    #     result += f"\n{user}"
+    # print(result)
     iom.getSpeaker().say(result)
 
 

@@ -22,9 +22,3 @@ class IOM:
 
     def getCamera(self):
         return self.camera
-
-
-# test camera
-# iom = iom('')
-# camera = iom.getCamera()
-# img = camera.phoneCamera('192.168.213.36')

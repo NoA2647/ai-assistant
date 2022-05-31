@@ -9,11 +9,11 @@ from pydub.playback import play
 class Speaker:
 
     def __init__(self, mapper):
-        self.map = mapper
+        self.audioPath = mapper.getAudioPath()
 
     def sayGoogle(self, text, lang='eg'):
         tts = gTTS(text=text, lang=lang, tld="com")
-        filename = "abc.mp3"
+        filename = os.path.join(self.audioPath, 'test.mp3')
         tts.save(filename)
         os.system(f'mpg321 {filename}')
         os.remove(filename)
@@ -39,7 +39,7 @@ class Speaker:
 
         response = requests.post(url, json=json, headers=headers)
         if response.ok:
-            filename = "abc.mp3"
+            filename = os.path.join(self.audioPath, 'test.mp3')
             recording = AudioSegment.from_file(io.BytesIO(response.content), format="mp3")
             recording.export(filename, format='mp3')
             play(recording)
@@ -50,6 +50,5 @@ class Speaker:
             pass
 
     def play(self, name):
-        audioPath = self.map.getAudioPath()
-        print(f"audioPath: {audioPath}/{name}")
-        os.system(f'mpg321 {audioPath}/{name}')
+        print(f"audioPath: {self.audioPath}/{name}")
+        os.system(f'mpg321 {self.audioPath}/{name}')

@@ -10,12 +10,11 @@ class Recorder:
     channels = 1
     rate = 44100
 
-    frames = []
-
     def __init__(self, master, path):
         self.path = path
         self.stream = None
         self.p = None
+        self.frames = []
         self.t = threading.Thread(target=self.record)
         self.master = master
         self.isRecording = False

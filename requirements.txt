@@ -1,8 +1,6 @@
-SpeechRecognition
 gtts
 playsound
 pywhatkit
-deepspeech
 numpy
 PyAudio
 wikipedia
@@ -13,3 +11,6 @@ pyjokes
 opencv-python
 requests
 pydub
+jdatetime
+
+pandas

@@ -2,7 +2,7 @@ import pywhatkit
 import os
 import random
 
-WORDS = ["play", "music"]  # format: play ? music from ?
+WORDS = [ "پخش","آهنگ"]  # format: آهنگ ؟ را از ؟ پخش کن
 
 PRIORITY = 1
 
@@ -11,10 +11,10 @@ def run(command, iom, profile, mapper):
     musicName = "any"
     source = "myMusic"
     print(command.split(' '))
-    if "from" in command:
-        source = command.split(" ")[-1]
+    if "خارج" in command:
+        source = "youtube"
     musicName = command.split(' ')[1]
-    iom.getSpeaker().say(f"playing {musicName} music")
+    iom.getSpeaker().say(f"پخش آهنگ")
 
     if source == "youtube":
         pywhatkit.playonyt(topic=musicName, open_video=True)
@@ -22,9 +22,9 @@ def run(command, iom, profile, mapper):
     elif source == "myMusic":
         path = mapper.getNasMusicPath()
         musics = os.listdir(path)
-        print(musics)
+        print('musics:', musics)
         if len(musics) == 0:
-            iom.getSpeaker().say("no music founded !")
+            iom.getSpeaker().say("هیچ آهنگی پیدانشد !")
             return
         music = musics[random.randint(0, len(musics)-1)]
         os.system(f'mpg321 {path}/{music}')

@@ -2,7 +2,7 @@ import re
 
 import pyjokes
 
-WORDS = ["joke"]
+WORDS = ["جک"]
 
 PRIORITY = 1
 
@@ -13,4 +13,4 @@ def run(command, iom, profile, mapper):
 
 
 def isValid(command):
-    return bool(re.search(r'\bjoke\b', command, re.IGNORECASE))
+    return bool(re.search(r'\bجک\b', command, re.IGNORECASE))

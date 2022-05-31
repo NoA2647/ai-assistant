@@ -1,16 +1,17 @@
-import datetime
-import re
+import jdatetime
 
-WORDS = ["time"]
+WORDS = ["ساعت", "زمان"]
 
 PRIORITY = 1
 
 
 def run(command, iom, profile, mapper):
-    time = datetime.datetime.now().strftime("%I:%M %p")
-    result = f"current time is {time}"
+    jdatetime.set_locale('fa_IR')
+    time = jdatetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S")
+    print('امروز', time)
+    result = f"امروز، {time} است "
     iom.getSpeaker().say(result)
 
 
 def isValid(command):
-    return bool(re.search(r'\btime\b', command, re.IGNORECASE))
+    return bool(any(word in command for word in WORDS))

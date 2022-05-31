@@ -1,4 +1,12 @@
 import pkgutil
+import pandas as pd
+
+
+def saveData(text, label, path):
+    df = pd.read_csv(f'{path}/data.csv', index_col=0)
+    temp = pd.DataFrame({'text': [text], 'intent': [label]})
+    df = pd.concat([df, temp], ignore_index=True, axis = 0)
+    df.to_csv(f'{path}/data.csv', index=False)
 
 
 class Manager:
@@ -32,15 +40,16 @@ class Manager:
         self._utils = utils
 
     def query(self, command):
-        for utils in self._utils:
-            if utils.isValid(command):
-                print(f"util '{utils.__name__}' validated")
+        for util in self._utils:
+            if util.isValid(command):
+                print(f"util '{util.__name__}' validated")
                 # confirm
-                ok = input(f"do you want to use '{utils.__name__}' util? (y/*)")
-                if ok != 'y' or ok != 'Y':
+                ok = input(f"do you want to use '{util.__name__}' util? (y/*) ")
+                if ok != 'y' and ok != 'Y':
                     continue
+                saveData(command, util.__name__, self.map.getDataPath())
                 try:
-                    return utils.run(command, self.iom, self.profile, self.map)
+                    return util.run(command, self.iom, self.profile, self.map)
                 except Exception as e:
                     print(e)
                     print('Failed to execute util')
