@@ -5,6 +5,7 @@ logging.basicConfig(filename='log.log',
                     level=logging.DEBUG,
                     format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
+
 class Map:
 
     def __init__(self):
