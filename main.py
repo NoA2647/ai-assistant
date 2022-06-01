@@ -8,6 +8,7 @@ logging.basicConfig(filename='log.log',
                     level=logging.DEBUG,
                     format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
+
 def run_ai():
     mapper = Map()
     logging.info('Mapper init ...')
@@ -22,7 +23,7 @@ def run_ai():
     manager.getUtils()
     logging.info('utils init ...')
     while True:
-        # command = "transfer file to me"
+        # command = "سریال یلدا را از شبکه ۳ پخش کن"
         # path = iom.getScreen().record()
         command = iom.getListener().listenSilence()
         manager.query(command)

@@ -2,9 +2,9 @@ import pywhatkit
 import os
 import random
 
-WORDS = [ "پخش","آهنگ"]  # format: آهنگ ؟ را از ؟ پخش کن
+KEYWORDS = ["موزیک", "آهنگ", "اهنگ", "ترانه", "موسیقی"]
 
-PRIORITY = 1
+PRIORITY = 3
 
 
 def run(command, iom, profile, mapper):
