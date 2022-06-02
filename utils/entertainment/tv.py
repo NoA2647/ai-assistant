@@ -1,3 +1,3 @@
 KEYWORDS = [ "شبکه", "تلویزیون"]
 
-PRIORITY = 4
+PRIORITY = 5

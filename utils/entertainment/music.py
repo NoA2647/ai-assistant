@@ -4,7 +4,7 @@ import random
 
 KEYWORDS = ["موزیک", "آهنگ", "اهنگ", "ترانه", "موسیقی"]
 
-PRIORITY = 3
+PRIORITY = 4
 
 
 def run(command, iom, profile, mapper):

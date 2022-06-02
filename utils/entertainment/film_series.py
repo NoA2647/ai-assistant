@@ -1,3 +1,3 @@
 KEYWORDS = [ "فیلم","سریال", "سینما"]
 
-PRIORITY = 1
+PRIORITY = 2
