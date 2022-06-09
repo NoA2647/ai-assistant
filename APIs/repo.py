@@ -107,7 +107,7 @@ class Namava:
             data['type'] = 'all'
 
         if movie['genre'] != (None,):
-            data['subcategories'] = movie["genre"]
+            data['subcategories'] = ','.join(movie['genre'])
 
         for lang in file['language'].keys():
             if lang in movie["language"]:
