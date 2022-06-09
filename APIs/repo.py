@@ -107,7 +107,7 @@ class Namava:
             data['type'] = 'all'
 
         if movie['genre'] != (None,):
-            data['genre'] = movie["genre"]
+            data['subcategories'] = movie["genre"]
 
         for lang in file['language'].keys():
             if lang in movie["language"]:
@@ -167,7 +167,7 @@ class Namava:
 
         return data
 
-    # videoId = 147019
+# videoId = 147019
 # token = auth("+989368188589", "namava6276")
 # print(videoInfo(147019))
 # search({"type":"movie","language":"Persian", "searchOrderType":"2", "dubs":"2"})

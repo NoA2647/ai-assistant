@@ -122,7 +122,11 @@ class Movie:
         for i in range(len(words)):
 
             if words[i] in genre:
-                self.genre = words[i]
+                if genre != (None,):
+                    self.genre.append(words[i])
+                else:
+                    self.genre = []
+                    self.genre.append(words[i])
                 del_i.append(i)
                 continue
 
