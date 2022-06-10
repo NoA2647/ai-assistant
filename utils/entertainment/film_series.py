@@ -2,7 +2,7 @@ from APIs.repo import Namava
 import os
 from hazm import *
 
-KEYWORDS = ["فیلم", "سریال", "سینما"]
+KEYWORDS = ["فیلم", "سریال", "مستند","سینما"]
 
 PRIORITY = 2
 
@@ -94,7 +94,7 @@ class Movie:
         chunker = Chunker(model=self.chunk_model)
 
         rate = "امتیاز"
-        films = ["فیلم", "سریال"]
+        films = ["فیلم", "مستند", "سریال"]
         hour = ["ساعت", "دقیقه"]
         year = "سال"
         az = "از"
