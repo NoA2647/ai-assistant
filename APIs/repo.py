@@ -44,7 +44,9 @@ class Namava:
         response = r.get(self.root + self.search_url + data, headers=header).json()
 
         if response['succeeded']:
-            return response['result']['result_items'][0]['groups']['Media']['items']
+            if response['result']['result_items'][0]['total'] != 0:
+                if response['result']['result_items'][0]['groups']['Media']['total'] != 0:
+                    return response['result']['result_items'][0]['groups']['Media']['items']
         else:
             return None
 

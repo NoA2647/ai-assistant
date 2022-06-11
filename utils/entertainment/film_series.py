@@ -97,7 +97,6 @@ class Movie:
         films = ["فیلم", "مستند", "سریال"]
         hour = ["ساعت", "دقیقه"]
         year = "سال"
-        az = "از"
         ta = "تا"
         best = ["برتر", "بهترین", "برترین"]
         newest = ["جدیدترین", "جدید", "تازه", "تازه ترین", "تازهترین"]
@@ -117,17 +116,18 @@ class Movie:
 
         words = word_tokenize(text)
         temp_words = words.copy()
-        del_i = []
+        del_i = set()
 
         for i in range(len(words)):
+            print(i)
 
             if words[i] in genre:
-                if genre != (None,):
+                if self.genre != (None,):
                     self.genre.append(words[i])
                 else:
                     self.genre = []
                     self.genre.append(words[i])
-                del_i.append(i)
+                del_i.add(i)
                 continue
 
             if rate in words[i]:
@@ -135,53 +135,53 @@ class Movie:
                     if words[j].isdigit():
                         self.score = words[j]
                         for z in range(i + 1, j + 1):
-                            del_i.append(z)
+                            del_i.add(z)
                         break
-                del_i.append(i)
+                del_i.add(i)
                 continue
 
             if words[i] in hour:
                 self.length = words[i - 1]
-                del_i.append(i)
-                del_i.append(i - 1)
+                del_i.add(i)
+                del_i.add(i - 1)
                 continue
 
             if language in words[i] or doble in words[i]:
                 self.language = words[i + 1]
-                del_i.append(i)
-                del_i.append(i + 1)
+                del_i.add(i)
+                del_i.add(i + 1)
                 i += 1
                 continue
 
             if words[i] in source:
                 self.source = words[i]
-                del_i.append(i)
+                del_i.add(i)
                 continue
 
             if season in words[i]:
                 if words[i + 1] in numbers or words[i + 1].isdigit():
                     self.seasons = words[i + 1]
-                    del_i.append(i)
-                    del_i.append(i + 1)
+                    del_i.add(i)
+                    del_i.add(i + 1)
                     i += 1
                     continue
                 else:
                     self.seasons = words[i - 1]
-                    del_i.append(i)
-                    del_i.append(i - 1)
+                    del_i.add(i)
+                    del_i.add(i - 1)
                     continue
 
             if episode in words[i]:
                 if words[i + 1] in numbers or words[i + 1].isdigit():
                     self.episodes = words[i + 1]
-                    del_i.append(i)
-                    del_i.append(i + 1)
+                    del_i.add(i)
+                    del_i.add(i + 1)
                     i += 1
                     continue
                 else:
                     self.episodes = words[i - 1]
-                    del_i.append(i)
-                    del_i.append(i - 1)
+                    del_i.add(i)
+                    del_i.add(i - 1)
                     continue
 
             if words[i] in best or words[i] in newest:
@@ -189,40 +189,39 @@ class Movie:
                     self.title_group = "برتر"
                 else:
                     self.title_group = "تازه"
-                del_i.append(i)
+                del_i.add(i)
                 continue
 
             if year in words[i]:
                 if words[i + 1] in numbers or words[i + 1].isdigit():
                     self.start_date = words[i + 1]
-                    del_i.append(i)
-                    del_i.append(i + 1)
+                    del_i.add(i)
+                    del_i.add(i + 1)
                     i += 1
                     if ta in words[i + 1]:
                         self.end_date = words[i + 2]
-                        del_i.append(i + 1)
-                        del_i.append(i + 2)
+                        del_i.add(i + 1)
+                        del_i.add(i + 2)
                         i += 2
                         continue
                 elif words[i - 1] in numbers or words[i - 1].isdigit():
                     self.start_date = words[i - 1]
-                    del_i.append(i)
-                    del_i.append(i - 1)
+                    del_i.add(i)
+                    del_i.add(i - 1)
                     continue
 
                 else:
                     self.start_date = "2022"
-                    del_i.append(i)
+                    del_i.add(i)
                     continue
 
             for country in countries:
                 if country in words[i]:
                     self.country_name = words[i]
-                    del_i.append(i)
-                    continue
+                    del_i.add(i)
+                    break
 
-        del_i.sort(reverse=True)
-        for i in del_i:
+        for i in sorted(del_i, reverse=True):
             temp_words.pop(i)
 
         tags = tagger.tag(temp_words)
@@ -256,16 +255,19 @@ def run(command, iom, profile, map):
         films = namava.search(converted)
         print(films)
         films_detail = []
-        for film in films:
-            m = namava.videoInfo(film['id'], film['type'])
-            if m is not None:
-                if movie.get_length() is not None and m['duration'] is not None:
-                    if m['duration'] > int(movie.get_length()) + 20 or m['duration'] < max(int(movie.get_length()) - 20, 0):
-                        continue
-                if movie.get_score() != (None,) and m['score'] is not None:
-                    if movie.get_score() < m['score']:
-                        continue
-                films_detail.append(m)
+        if films is not None:
+            for film in films:
+                m = namava.videoInfo(film['id'], film['type'])
+                if m is not None:
+                    if movie.get_length() is not None and m['duration'] is not None:
+                        if m['duration'] > int(movie.get_length()) + 20 or m['duration'] < max(int(movie.get_length()) - 20, 0):
+                            continue
+                    if movie.get_score() != (None,) and m['score'] is not None:
+                        if movie.get_score() < m['score']:
+                            continue
+                    films_detail.append(m)
 
-        for film in films_detail:
-            print(film['name'])
+            for film in films_detail:
+                print(film['name'])
+        else:
+            print("no items find")
