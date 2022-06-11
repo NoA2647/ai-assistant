@@ -259,7 +259,7 @@ def run(command, iom, profile, map):
             for film in films:
                 m = namava.videoInfo(film['id'], film['type'], film['url'])
                 if m is not None:
-                    if movie.get_length() is not None and m['duration'] is not None:
+                    if movie.get_length() != (None,) and m['duration'] is not None:
                         if m['duration'] > int(movie.get_length()) + 20 or m['duration'] < max(int(movie.get_length()) - 20, 0):
                             continue
                     if movie.get_score() != (None,) and m['score'] is not None:

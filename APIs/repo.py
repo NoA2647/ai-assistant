@@ -56,9 +56,7 @@ class Namava:
 
         video_info = {"id": None, "type": None, "name": None, "story": None, "score": None, "trailer": None,
                       "duration": None, "language": [],
-                      "subtitle": [], "url": None}
-
-        video_id['url'] = video_url
+                      "subtitle": [], "url": video_url}
 
         if video_type == "Series":
             response = r.get(self.root + film_detail_series, headers=self.header)
@@ -84,7 +82,8 @@ class Namava:
                 video_info['name'] = response['result']['caption']
                 video_info['story'] = response['result']['story']
                 video_info['duration'] = response['result']['mediaDuration']
-                video_info['trailer'] = self.root + response['result']['trailerVideoUrl']
+                if response['result']['trailerVideoUrl'] is not None:
+                    video_info['trailer'] = self.root + response['result']['trailerVideoUrl']
                 for voice in response['result']['voiceList']:
                     video_info['language'].append(voice['languageCulture'])
                 for subtitle in response['result']['subtitleList']:
