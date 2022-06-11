@@ -50,13 +50,15 @@ class Namava:
         else:
             return None
 
-    def videoInfo(self, video_id, video_type):
+    def videoInfo(self, video_id, video_type, video_url):
         film_detail_movie = f"/api/v2.0/medias/{video_id}/single-movie/"
         film_detail_series = f"/api2/movie/{video_id}"
 
         video_info = {"id": None, "type": None, "name": None, "story": None, "score": None, "trailer": None,
                       "duration": None, "language": [],
-                      "subtitle": []}
+                      "subtitle": [], "url": None}
+
+        video_id['url'] = video_url
 
         if video_type == "Series":
             response = r.get(self.root + film_detail_series, headers=self.header)
