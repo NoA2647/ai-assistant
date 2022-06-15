@@ -32,7 +32,7 @@ class Namava:
         else:
             return None
 
-    def search(self, parameters, count=20, page=1):
+    def search(self, parameters, count=5, page=1):
         header = CaseInsensitiveDict()
         header["Content-type"] = "application/json"
         header["User-Agent"] = "PostmanRuntime/7.29.0"
@@ -44,17 +44,19 @@ class Namava:
         response = r.get(self.root + self.search_url + data, headers=header).json()
 
         if response['succeeded']:
-            return response['result']['result_items'][0]['groups']['Media']['items']
+            if response['result']['result_items'][0]['total'] != 0:
+                if response['result']['result_items'][0]['groups']['Media']['total'] != 0:
+                    return response['result']['result_items'][0]['groups']['Media']['items']
         else:
             return None
 
-    def videoInfo(self, video_id, video_type):
+    def videoInfo(self, video_id, video_type, video_url):
         film_detail_movie = f"/api/v2.0/medias/{video_id}/single-movie/"
         film_detail_series = f"/api2/movie/{video_id}"
 
         video_info = {"id": None, "type": None, "name": None, "story": None, "score": None, "trailer": None,
                       "duration": None, "language": [],
-                      "subtitle": []}
+                      "subtitle": [], "url": video_url}
 
         if video_type == "Series":
             response = r.get(self.root + film_detail_series, headers=self.header)
@@ -80,7 +82,8 @@ class Namava:
                 video_info['name'] = response['result']['caption']
                 video_info['story'] = response['result']['story']
                 video_info['duration'] = response['result']['mediaDuration']
-                video_info['trailer'] = self.root + response['result']['trailerVideoUrl']
+                if response['result']['trailerVideoUrl'] is not None:
+                    video_info['trailer'] = self.root + response['result']['trailerVideoUrl']
                 for voice in response['result']['voiceList']:
                     video_info['language'].append(voice['languageCulture'])
                 for subtitle in response['result']['subtitleList']:
