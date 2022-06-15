@@ -267,7 +267,11 @@ def run(command, iom, profile, map):
                             continue
                     films_detail.append(m)
 
-            for film in films_detail:
-                print(film['name'])
+            names =[]
+            for name in films_detail:
+                names.append(name['name'])
+
+            iom.getSpeaker().say(",".join(names))
+
         else:
-            print("no items find")
+            iom.getSpeaker().say("فیلمی یافت نشد")
