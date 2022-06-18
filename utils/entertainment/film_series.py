@@ -2,7 +2,7 @@ from APIs.repo import Namava
 import os
 from hazm import *
 
-KEYWORDS = ["فیلم", "سریال", "مستند", "سینما"]
+KEYWORDS = ["فیلم", "سریال", "مستند","سینما"]
 
 PRIORITY = 2
 
@@ -107,7 +107,7 @@ class Movie:
                      "انگلستان", "انگلیس", "اسپانیا", "دانمارک", "سوئد", "روسیه", "مکزیک", "برزیل", "استرالیا"]
         numbers = ["یک", "دو", "سه", "چهار", "پنج", "شش", "شیش", "هفت", "هشت", "نه", "ده", "یازده", "دوازده", "سیزده",
                    "چهارده", "پانزده", "شانزده", "شونزده", "هقتده", "هجده", "نوزده", "بیست", "سی", "چهل", "پنجاه",
-                   "شصت", "هفتاد", "هشتاد", "نود", "صد", "سوم"]
+                   "شصت", "هفتاد", "هشتاد", "نود", "صد"]
         genre = ["هیجانی", "اجتماعی", "فانتزی", "علمی تخیلی", "عاشقانه", "جنگی", "خانوادگی", "درام", "اکشن", "تاریخی",
                  "ترسناک", "جنایی", "رازآلود", "کمدی", "کلاسیک", "ماجراجویی", "مستند", "موزیکال", "مهیج", "وسترن",
                  "ورزشی"]
@@ -159,7 +159,7 @@ class Movie:
                 continue
 
             if season in words[i]:
-                if words[i + 1] in numbers or words[i + 1].isdigit() or words[i + 1] in [n+'م' for n in numbers]:
+                if words[i + 1] in numbers or words[i + 1].isdigit():
                     self.seasons = words[i + 1]
                     del_i.append(i)
                     del_i.append(i + 1)
@@ -219,7 +219,7 @@ class Movie:
                 if country in words[i]:
                     self.country_name = words[i]
                     del_i.append(i)
-                    break
+                    continue
 
         del_i.sort(reverse=True)
         for i in del_i:
@@ -260,8 +260,7 @@ def run(command, iom, profile, map):
             m = namava.videoInfo(film['id'], film['type'])
             if m is not None:
                 if movie.get_length() is not None and m['duration'] is not None:
-                    if m['duration'] > int(movie.get_length()) + 20 or m['duration'] < max(int(movie.get_length()) - 20,
-                                                                                           0):
+                    if m['duration'] > int(movie.get_length()) + 20 or m['duration'] < max(int(movie.get_length()) - 20, 0):
                         continue
                 if movie.get_score() != (None,) and m['score'] is not None:
                     if movie.get_score() < m['score']:
