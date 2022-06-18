@@ -33,6 +33,7 @@ def find_intent(clean_text, intents):
                 intents_score[intent['name']] = intents_score[intent['name']] + 1
                 keywords_set.add(keyword)
 
+    logging.debug(f"intents score: {intents_score}")
     if max(intents_score.values()) != 0:
         return max(intents_score, key=intents_score.get), keywords_set
     else:
@@ -55,6 +56,7 @@ def find_subIntent(wordSet, modules):
 
     print(subIntents_score)
     # max(subIntents_score, key=subIntents_score.get)
+    logging.debug(f"subIntents score: {subIntents_score}")
     if max(subIntents_score.values()) != 0:
         return [key for key in subIntents_score.keys() if subIntents_score[key] >= 1]
     else:
@@ -85,6 +87,8 @@ class Manager:
 
         with open(os.path.join(mapper.getDataPath(), 'intents.json')) as f:
             file = json.load(f)
+
+        logging.info("Reading stopwords and intent file ...")
         self.intents = file['intents']
         f.close()
 
@@ -96,6 +100,7 @@ class Manager:
     def getUtils(self):
         root = self.map.getUtilsPath()
         print(f"Looking for modules in: {root}")
+        logging.debug(f"looking for modules in {root}")
         utils = {}
         intentFiles = os.listdir(root)
         for intent in intentFiles:
@@ -115,10 +120,13 @@ class Manager:
             utils[intent].sort(key=lambda mod: mod.PRIORITY, reverse=True)
         self._utils = utils
         print(utils)
+        logging.info("Modules found ...")
 
     def query(self, command):
         clean_text = preprocess_text(command, self.stopWords)
+        logging.debug(f"preprocess text: {clean_text}")
         result = find_intent(clean_text, self.intents)
+        logging.debug(f"intents: {result}")
         if result is not None:
             tasks = find_subIntent(result[1], self._utils[result[0]])
             if tasks is not None:
@@ -126,18 +134,22 @@ class Manager:
                     for util in self._utils[result[0]]:
                         if util.__name__ == task:
                             print(f"util '{util.__name__}' validated")
+                            logging.debug(f"util '{util.__name__}' validated")
                             # confirm
                             ok = input(f"do you want to use '{util.__name__}' util? (y/*) ")
                             if ok != 'y' and ok != 'Y':
                                 break
                             saveData(command, util.__name__, self.map.getDataPath())
                             try:
+                                logging.debug(f"util '{util.__name__}' ran")
                                 return util.run(command, self.iom, self.profile, self.map)
                             except Exception as e:
                                 logging.exception(e)
                                 self.iom.getSpeaker().say("عملیات با شکست مواجه شد!")
 
             print(f"No util was able to run this command:\n \"{command}\"")
+            logging.debug(f"No util was able to run this command:\n \"{command}\"")
 
         else:
-            print(f"No intent detected")
+            print("No intent detected")
+            logging.debug("No intent detected")

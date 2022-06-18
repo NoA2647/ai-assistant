@@ -1,6 +1,11 @@
 from APIs.repo import Namava
 import os
 from hazm import *
+import logging
+
+logging.basicConfig(filename='log.log',
+                    level=logging.DEBUG,
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
 KEYWORDS = ["فیلم", "سریال", "مستند", "سینما"]
 
@@ -246,18 +251,18 @@ class Movie:
 def run(command, iom, profile, map):
     movie = Movie(map)
     movie.slot_filling(command)
-
+    logging.debug(f"result of slot filling: \ncommand: {command}\nslot filling: {movie.getAll()}")
     if movie.get_source() == "namava":
         namava = Namava()
-        print(movie.getAll())
         converted = namava.convertor(movie.getAll(), map)
-        print(converted)
+        logging.debug(f"convert to namava: {converted}")
         films = namava.search(converted)
-        print(films)
+        logging.debug(f"find {len(films)} films\n{films}")
         films_detail = []
         if films is not None:
             for film in films:
                 m = namava.videoInfo(film['id'], film['type'], film['url'])
+                logging.debug(f"detail of film(id={film['id']}, type={film['type']}, url={film['url']}):\n{m}")
                 if m is not None:
                     if movie.get_length() != (None,) and m['duration'] is not None:
                         if m['duration'] > int(movie.get_length()) + 20 or m['duration'] < max(
@@ -275,4 +280,5 @@ def run(command, iom, profile, map):
             iom.getSpeaker().say(",".join(names))
 
         else:
+            logging.debug("Not film founded")
             iom.getSpeaker().say("فیلمی یافت نشد")

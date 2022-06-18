@@ -1,5 +1,10 @@
 from hazm import *
 import os
+import logging
+
+logging.basicConfig(filename='log.log',
+                    level=logging.DEBUG,
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
 KEYWORDS = ["شبکه", "تلویزیون", "برنامه"]
 
@@ -180,7 +185,7 @@ class TV:
 def run(command, iom, profile, map):
     tv = TV(map)
     tv.slot_filling(command)
-
+    logging.debug(f"result of slot filling: \ncommand: {command}\nslot filling: {tv.getAll()}")
     if tv.get_source() == "telewebion":
         pass
         # tele api
