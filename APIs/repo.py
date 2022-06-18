@@ -32,7 +32,7 @@ class Namava:
         else:
             return None
 
-    def search(self, parameters, count=20, page=1):
+    def search(self, parameters, count=5, page=1):
         header = CaseInsensitiveDict()
         header["Content-type"] = "application/json"
         header["User-Agent"] = "PostmanRuntime/7.29.0"

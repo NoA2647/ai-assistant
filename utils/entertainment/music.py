@@ -28,7 +28,3 @@ def run(command, iom, profile, mapper):
             return
         music = musics[random.randint(0, len(musics)-1)]
         os.system(f'mpg321 {path}/{music}')
-
-
-def isValid(command):
-    return bool(all(word in command for word in WORDS))
