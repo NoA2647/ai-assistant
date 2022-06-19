@@ -124,7 +124,6 @@ class Movie:
         del_i = set()
 
         for i in range(len(words)):
-            print(i)
 
             if words[i] in genre:
                 if self.genre != (None,):
