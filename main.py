@@ -26,6 +26,7 @@ def run_ai():
         # command = "سریال یلدا را از شبکه ۳ پخش کن"
         # path = iom.getScreen().record()
         command = iom.getListener().listenSilence()
+        logging.debug(f"command: {command}")
         manager.query(command)
         # sys.exit()
 

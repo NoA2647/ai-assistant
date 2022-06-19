@@ -11,11 +11,16 @@ logging.basicConfig(filename='log.log',
 
 
 def saveData(text, label, path):
-    logging.info('writing into csv ...')
-    df = pd.read_csv(f'{path}/data.csv', index_col=0)
-    temp = pd.DataFrame({'text': [text], 'intent': [label]})
-    df = pd.concat([df, temp], ignore_index=True, axis=0)
-    df.to_csv(f'{path}/data.csv', index=False)
+    location = f'{path}/data.csv'
+    if os.path.isfile(location):        
+        logging.info('writing into csv ...')
+        df = pd.read_csv(f'{path}/data.csv', index_col=0)
+        temp = pd.DataFrame({'text': [text], 'intent': [label]})
+        df = pd.concat([df, temp], ignore_index=True, axis=0)
+        df.to_csv(f'{path}/data.csv', index=False)
+    else:
+        temp = pd.DataFrame({'text': [text], 'intent': [label]})
+        temp.to_csv(location, index=False)
 
 
 def find_intent(clean_text, intents):
