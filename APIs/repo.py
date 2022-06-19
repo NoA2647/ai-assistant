@@ -2,6 +2,11 @@ import requests as r
 from requests.structures import CaseInsensitiveDict
 import os
 import json
+import logging
+
+logging.basicConfig(filename='log.log',
+                    level=logging.DEBUG,
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
 
 class Namava:
@@ -18,21 +23,32 @@ class Namava:
     def auth(self, username, password):
         data = {"UserName": username,
                 "Password": password}
-
-        response = r.post(self.root + self.auth_url, headers=self.header, json=data).json()
+        response = None
+        try:
+            response = r.post(self.root + self.auth_url, headers=self.header, json=data).json()
+        except Exception as e:
+            logging.exception(e)
+        logging.debug(f"response of auth namava:\n{response}")
         if response['succeeded']:
             self.header["Cookie"] = "auth_v2=" + response['result']
         else:
             return False
 
     def info(self):
-        response = r.get(self.root + self.info_url, headers=self.header).json()
+        response = None
+        try:
+            response = r.get(self.root + self.info_url, headers=self.header).json()
+        except Exception as e:
+            logging.exception(e)
+        logging.debug(f"response of info namava:\n{response}")
         if response['succeeded']:
             return response['result']
         else:
             return None
 
     def search(self, parameters, count=5, page=1):
+        response = None
+
         header = CaseInsensitiveDict()
         header["Content-type"] = "application/json"
         header["User-Agent"] = "PostmanRuntime/7.29.0"
@@ -41,11 +57,16 @@ class Namava:
             if parameters[parameter] is not None:
                 para = parameter + "=" + parameters[parameter]
                 data = "&".join([data, para])
-        response = r.get(self.root + self.search_url + data, headers=header).json()
-
+        try:
+            response = r.get(self.root + self.search_url + data, headers=header).json()
+        except Exception as e:
+            logging.exception(e)
+        logging.debug(f"response of info namava:\n{response}")
         if response['succeeded']:
             if response['result']['result_items'][0]['total'] != 0:
                 if response['result']['result_items'][0]['groups']['Media']['total'] != 0:
+                    logging.debug(
+                        f"items of response of info namava:\n{response['result']['result_items'][0]['groups']['Media']['items']}")
                     return response['result']['result_items'][0]['groups']['Media']['items']
         else:
             return None
@@ -57,9 +78,10 @@ class Namava:
         video_info = {"id": None, "type": None, "name": None, "story": None, "score": None, "trailer": None,
                       "duration": None, "language": [],
                       "subtitle": [], "url": video_url}
-
+        logging.debug(f"request for video_info of namava:\n{video_info}")
         if video_type == "Series":
             response = r.get(self.root + film_detail_series, headers=self.header)
+            logging.debug(f"response of video_info namava:\n{response.text}")
             if response.text != "":
                 response = response.json()
                 video_info['type'] = 'series'
@@ -69,13 +91,14 @@ class Namava:
                     if 'امتیاز' in item['Name']:
                         video_info['score'] = float(item['Value'])
                 video_info['story'] = response['ShortDescription']
-
+                logging.debug(f"fill video_info:\n{video_info}")
                 return video_info
             else:
                 return None
 
         else:
             response = r.get(self.root + film_detail_movie, headers=self.header).json()
+            logging.debug(f"response of video_info namava:\n{response}")
             if response['succeeded'] and response['result'] is not None:
                 video_info['type'] = 'movie'
                 video_info['id'] = response['result']['id']
@@ -88,7 +111,7 @@ class Namava:
                     video_info['language'].append(voice['languageCulture'])
                 for subtitle in response['result']['subtitleList']:
                     video_info['subtitle'].append(subtitle['languageCulture'])
-
+                logging.debug(f"fill video_info:\n{video_info}")
                 return video_info
             else:
                 return None
@@ -96,7 +119,7 @@ class Namava:
     def convertor(self, movie, map):
 
         data = {}
-
+        logging.info("open namava_api_map.json")
         with open(os.path.join(map.getDataPath(), 'namava_api_map.json')) as f:
             file = json.load(f)
 
@@ -168,6 +191,7 @@ class Namava:
                 if count in movie["country_name"]:
                     data['CountryProducer'] = countries[count]
 
+        logging.debug(f"convertor of namava, data:\n{data}")
         return data
 
 # videoId = 147019

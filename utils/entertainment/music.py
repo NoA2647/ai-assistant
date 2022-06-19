@@ -1,6 +1,11 @@
 import pywhatkit
 import os
 import random
+import logging
+
+logging.basicConfig(filename='log.log',
+                    level=logging.DEBUG,
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
 KEYWORDS = ["موزیک", "آهنگ", "اهنگ", "ترانه", "موسیقی"]
 
