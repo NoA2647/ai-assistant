@@ -12,6 +12,6 @@ opencv-python
 requests
 pydub
 jdatetime
-
+SpeechRecognition
 pandas
 hazm
