@@ -93,7 +93,7 @@ class Movie:
         text = normalizer.normalize(text)
 
         stemmer = Stemmer()
-        tet = stemmer.stem(text)
+        text = stemmer.stem(text)
 
         tagger = POSTagger(model=self.tagger_model)
         chunker = Chunker(model=self.chunk_model)
@@ -176,7 +176,7 @@ class Movie:
                     continue
 
             if episode in words[i]:
-                if words[i + 1] in numbers or words[i + 1].isdigit():
+                if words[i + 1] in numbers or words[i + 1].isdigit() or words[i + 1] in [n + 'م' for n in numbers]:
                     self.episodes = words[i + 1]
                     del_i.add(i)
                     del_i.add(i + 1)
