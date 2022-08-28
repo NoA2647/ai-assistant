@@ -9,6 +9,13 @@ logging.basicConfig(filename='log.log',
                     format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
 
 
+def wake_word(name, iom):
+    if name in iom.getListener().listenSilence():
+        return True
+    else:
+        return False
+
+
 def run_ai():
     mapper = Map()
     logging.info('Mapper init ...')
@@ -23,6 +30,10 @@ def run_ai():
     manager.getUtils()
     logging.info('utils init ...')
     while True:
+        while not wake_word('امیر', iom):
+            print("sleeping zzZ")
+            pass
+        print("wakeup ...")
         # command = "سریال یلدا را از شبکه ۳ پخش کن"
         # path = iom.getScreen().record()
         command = iom.getListener().listenSilence()
