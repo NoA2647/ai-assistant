@@ -10,7 +10,7 @@ logging.basicConfig(filename='log.log',
 
 KEYWORDS = ["ویکی", "ویکی پدیا"]
 
-PRIORITY = 1
+PRIORITY = 6
 
 EXCLUDED_IMAGES = [
     'https://upload.wikimedia.org/wikipedia/commons/7/73/Blue_pencil.svg'
@@ -97,14 +97,13 @@ class WIKI:
 
 
 def run(command, iom, profile, map):
-    command = 'آمریکا در کدام قاره است'
     wiki = WIKI()
     wiki.wiki_lookup(command)
-    print(wiki.summary())
+    summary = wiki.summary()
+    print(summary)
+    iom.speaker.say(summary)
     url = wiki.show_image()
     webbrowser.open(url)
-    print(wiki.more())
+    # if user wants more detail
+    # print(wiki.more())
 
-
-
-run(None, None, None, None)

@@ -93,7 +93,7 @@ class Movie:
         text = normalizer.normalize(text)
 
         stemmer = Stemmer()
-        tet = stemmer.stem(text)
+        text = stemmer.stem(text)
 
         tagger = POSTagger(model=self.tagger_model)
         chunker = Chunker(model=self.chunk_model)
@@ -176,7 +176,7 @@ class Movie:
                     continue
 
             if episode in words[i]:
-                if words[i + 1] in numbers or words[i + 1].isdigit():
+                if words[i + 1] in numbers or words[i + 1].isdigit() or words[i + 1] in [n + 'م' for n in numbers]:
                     self.episodes = words[i + 1]
                     del_i.add(i)
                     del_i.add(i + 1)
@@ -256,9 +256,9 @@ def run(command, iom, profile, map):
         converted = namava.convertor(movie.getAll(), map)
         logging.debug(f"convert to namava: {converted}")
         films = namava.search(converted)
-        logging.debug(f"find {len(films)} films\n{films}")
         films_detail = []
         if films is not None:
+            logging.debug(f"find {len(films)} films\n{films}")
             for film in films:
                 m = namava.videoInfo(film['id'], film['type'], film['url'])
                 logging.debug(f"detail of film(id={film['id']}, type={film['type']}, url={film['url']}):\n{m}")
