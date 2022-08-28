@@ -256,9 +256,9 @@ def run(command, iom, profile, map):
         converted = namava.convertor(movie.getAll(), map)
         logging.debug(f"convert to namava: {converted}")
         films = namava.search(converted)
-        logging.debug(f"find {len(films)} films\n{films}")
         films_detail = []
         if films is not None:
+            logging.debug(f"find {len(films)} films\n{films}")
             for film in films:
                 m = namava.videoInfo(film['id'], film['type'], film['url'])
                 logging.debug(f"detail of film(id={film['id']}, type={film['type']}, url={film['url']}):\n{m}")
