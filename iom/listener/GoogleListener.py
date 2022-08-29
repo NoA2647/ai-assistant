@@ -31,9 +31,8 @@ class Listener:
             with sr.AudioFile(path) as source:
                 voice = self._engine.record(source)
                 command = self._engine.recognize_google(voice, language='fa-IR')
-                print(command)
         except Exception as e:
             print("something went wrong")
             logging.exception(e)
 
-        return command
+        return command.lower()
