@@ -26,7 +26,7 @@ class Speaker:
 
     def say(self, text):
         logging.info('saying with aria API ...')
-        API_KEY = "YSUJ7PGA3QV0N0N"
+        API_KEY = "VA2Q1GEOAI57SB9"
         url = 'http://api.farsireader.com/ArianaCloudService/ReadText'
         headers = {'Content-type': 'application/json'}
         json = {"Text": text,
