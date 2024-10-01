@@ -3,7 +3,8 @@ import logging
 
 logging.basicConfig(filename='log.log',
                     level=logging.DEBUG,
-                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s',
+                    encoding="utf-8")
 
 
 class Map:
@@ -12,6 +13,8 @@ class Map:
         self._APP_PATH = os.path.dirname(os.path.abspath(__file__))
 
         self._AUDIO_PATH = os.path.join(self._APP_PATH, "audios")
+        if not os.path.exists(self._AUDIO_PATH):
+            os.makedirs(self._AUDIO_PATH)
         self._UTILS_PATH = os.path.join(self._APP_PATH, "utils")
         self._DATA_PATH = os.path.join(self._APP_PATH, "data")
 
