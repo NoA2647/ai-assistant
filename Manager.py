@@ -7,7 +7,8 @@ from hazm import *
 
 logging.basicConfig(filename='log.log',
                     level=logging.DEBUG,
-                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s',
+                    encoding="utf-8")
 
 
 def saveData(text, label, path):
@@ -85,12 +86,12 @@ class Manager:
         self._utils = None
         self.stopWords = []
 
-        with open(os.path.join(mapper.getDataPath(), 'stopWords.txt')) as f:
+        with open(os.path.join(mapper.getDataPath(), 'stopWords.txt'), 'r', encoding="utf8") as f:
             for lines in f.readlines():
                 self.stopWords.append(lines[:-1])
         f.close()
 
-        with open(os.path.join(mapper.getDataPath(), 'intents.json')) as f:
+        with open(os.path.join(mapper.getDataPath(), 'intents.json'), encoding="utf8") as f:
             file = json.load(f)
 
         logging.info("Reading stopwords and intent file ...")

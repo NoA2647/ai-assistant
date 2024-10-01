@@ -28,8 +28,10 @@ class Movie:
         self.country_name = None,
         self.source = "namava"
 
-        self.tagger_model = os.path.join(map.getDataPath(), 'hazm_data/postagger.model')
-        self.chunk_model = os.path.join(map.getDataPath(), 'hazm_data/chunker.model')
+        temp = os.path.join('hazm_data', 'pos_tagger.model')
+        self.tagger_model = os.path.join(map.getDataPath(), temp)
+        temp = os.path.join('hazm_data', 'chunker.model')
+        self.chunk_model = os.path.join(map.getDataPath(), temp)
 
     def get_name(self):
         return self.name

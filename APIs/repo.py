@@ -6,7 +6,8 @@ import logging
 
 logging.basicConfig(filename='log.log',
                     level=logging.DEBUG,
-                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s',
+                    encoding="utf-8")
 
 
 class Namava:
@@ -120,7 +121,7 @@ class Namava:
 
         data = {}
         logging.info("open namava_api_map.json")
-        with open(os.path.join(map.getDataPath(), 'namava_api_map.json')) as f:
+        with open(os.path.join(map.getDataPath(), 'namava_api_map.json'), 'r', encoding="utf8") as f:
             file = json.load(f)
 
         data['query'] = movie["name"]

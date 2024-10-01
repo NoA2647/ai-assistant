@@ -6,7 +6,8 @@ import logging
 
 logging.basicConfig(filename='log.log',
                     level=logging.DEBUG,
-                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s',
+                    encoding="utf-8")
 
 class Camera:
     def __init__(self):

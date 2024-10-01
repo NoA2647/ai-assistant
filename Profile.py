@@ -4,7 +4,8 @@ import logging
 
 logging.basicConfig(filename='log.log',
                     level=logging.DEBUG,
-                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s')
+                    format='%(asctime)s | %(name)s | %(levelname)s | %(module)s | %(lineno)d | %(message)s',
+                    encoding="utf-8")
 
 
 def createProfile(path):
@@ -31,7 +32,7 @@ def createProfile(path):
 
     json_object = json.dumps(profile)
 
-    with open(path, "w") as outfile:
+    with open(path, "w", encoding="utf8") as outfile:
         outfile.write(json_object)
         outfile.close()
 
@@ -53,7 +54,7 @@ class Profile:
         logging.info('Reading profile ...')
         try:
             path = self.map.getProfilePath()
-            file = open(path)
+            file = open(path, encoding="utf8")
             profile = json.load(file)
             self._name = profile["name"]
             self._userName = profile["userName"]
